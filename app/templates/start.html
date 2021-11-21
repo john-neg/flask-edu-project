@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Играем {% endblock %}
+
+{% block content %}
+
+<a href="/" class="mt-3 btn btn-outline-secondary btn-sm" tabindex="-1" role="button">Вернуться на главную</a>
+
+<h1 class="h3 mt-4 mb-3 fw-normal">Вы пытаетесь выбраться на улицу</h1>
+
+<div class="row justify-content-md-center mb-4">
+    Сейчас Вы находитесь в комнате <p><b>{{ room }}</b></p>
+</div>
+
+<form action="" method="post">
+{{ form.hidden_tag() }}
+
+<div class="row justify-content-md-center mb-4">
+    <label class="form-label">{{ form.direction.label }}</label>
+    <div class="col-md-2">
+        {{ form.direction(class="form-select form-select-ld") }}
+    </div>
+    <label class="form-label">{{ form.steps.label }}</label>
+    <div class="col-md-2">
+        {{ form.steps(class="form-control form-control-ld") }}
+    </div>
+</div>
+
+{{ form.submit(class="btn btn-outline-secondary") }}
+</form>
+
+{% if message %}
+    <div class="row justify-content-md-center mt-4 mb-4">
+    <div class="d-grid col-md-5">
+        <div class="alert alert-warning" role="alert">
+          {{ message }}
+        </div>
+    </div></div>
+{% endif %}
+
+{{ form.error }}
+
+{% endblock %}

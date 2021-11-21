@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Добро пожаловать! {% endblock %}
+
+{% block content %}
+
+<h1 class="h3 mb-3 fw-normal">Готовы ли вы к приключениям?</h1>
+
+<form action="" method="post">
+{{ form.hidden_tag() }}
+
+<div class="row justify-content-md-center mb-4">
+    <label class="form-label">{{ form.room.label }}</label>
+    <div class="col-md-2">
+        {{ form.room(class="form-select form-select-ld") }}
+    </div>
+</div>
+
+{{ form.submit(class="btn btn-outline-secondary") }}
+
+</form>
+
+{% endblock %}
