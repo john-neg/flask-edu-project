@@ -12,6 +12,23 @@
     Сейчас Вы находитесь в комнате <p><b>{{ room }}</b></p>
 </div>
 
+    <table class="table-secondary">
+        {% for i in range(game.world|length) %}
+            <tr>
+                {% for j in range(game.world[i]|length) %}
+                    {% if game.world[i][j] == 1 %}
+                        <td class="cell living-cell"></td>
+                    {# мой вариант исправления нового мира добавление game.counter > 1 ниже #}
+                    {% elif game.world[i][j] == 0 and game.old_world[i][j] == 1 and game.counter > 1 %}
+                        <td class="cell dead-cell"></td>
+                    {% else %}
+                        <td class="cell"></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
 <form action="" method="post">
 {{ form.hidden_tag() }}
 
