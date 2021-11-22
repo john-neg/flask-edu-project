@@ -12,13 +12,13 @@ def index():
         session['room'] = request.form.get('room')
         width = request.form.get('width')
         height = request.form.get('height')
-        return redirect(url_for('quest', width=width, height=height, room=room))
+        return redirect(url_for('quest', width=width, height=height))
     return render_template('index.html', form=form)
 
 
 @app.route('/quest/<int:width>x<int:height>', methods=['GET', 'POST'])
 def quest(width, height):
-    r = Rooms(session['room'], width+2, height+2)
+    r = Rooms(5, width+2, height+2) # session['room']
     form = Quest()
     message = "Hello"
-    return render_template('start.html', rooms=r.rooms, form=form, message=message)
+    return render_template('start.html', rooms=r.rooms, current_room=r.get_name(), form=form, message=message)

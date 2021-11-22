@@ -8,21 +8,20 @@
 
 <h1 class="h3 mt-4 mb-3 fw-normal">Вы пытаетесь выбраться на улицу</h1>
 
-<div class="row justify-content-md-center mb-4">
-    Сейчас Вы находитесь в комнате <p><b>{{ room }}</b></p>
+<div class="row justify-content-md-center">
+    Сейчас Вы находитесь в комнате <p><b>{{ current_room }}</b></p>
 </div>
 
-    <table class="table-secondary">
-        {% for i in range(game.world|length) %}
-            <tr>
-                {% for j in range(game.world[i]|length) %}
-                    {% if game.world[i][j] == 1 %}
-                        <td class="cell living-cell"></td>
-                    {# мой вариант исправления нового мира добавление game.counter > 1 ниже #}
-                    {% elif game.world[i][j] == 0 and game.old_world[i][j] == 1 and game.counter > 1 %}
-                        <td class="cell dead-cell"></td>
+    <table class="table table-fixed table-dark">
+        {% for i in range(rooms|length) %}
+            <tr class="bg-success col-md-1">
+                {% for j in range(rooms[i]|length) %}
+                    {% if rooms[i][j] >= 1 %}
+                        <td class="bg-warning"></td>
+                    {% elif rooms[i][j] == 0 %}
+                        <td class=""> </td>
                     {% else %}
-                        <td class="cell"></td>
+                        <td class="bg-success"> </td>
                     {% endif %}
                 {% endfor %}
             </tr>

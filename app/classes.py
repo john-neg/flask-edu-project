@@ -2,12 +2,11 @@ import random
 
 
 class Rooms:
-    def __init__(self, room, width=10, height=10):
+    def __init__(self, room=1, width=11, height=11):
         self.__width = width
         self.__height = height
-        self.start_room = room
-        self.position = self.start_position()
         self.rooms = self.generate_rooms()
+        self.position = self.start_position(room)
         self.names = [(1, 'Спальня'),
                       (2, 'Холл'),
                       (3, 'Кухня'),
@@ -21,7 +20,7 @@ class Rooms:
                            ((0, 1), 'Восток')]
 
     def generate_rooms(self) -> object:
-        rooms = [[random.randint(1, 7) for _ in range(self.__width)] for _ in range(self.__height)]
+        rooms = [[random.randint(1, 7) for w in range(self.__width)] for h in range(self.__height)]
         # формируем стены (обозначение - 0)
         for i in range(self.__width):
             rooms[0][i] = 0
@@ -37,20 +36,39 @@ class Rooms:
         return rooms
 
     def get_name(self):
-        room = self.rooms[self.position[0]][self.position[1]]
+        room_name = self.rooms[self.position[0]][self.position[1]]
         for i in self.names:
-            if room in i:
+            if room_name in i:
                 return i[1]
 
-    def start_position(self):  # дописать обход по часовой стрелке
+    def start_position(self, room):
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-        while self.start_room != self.rooms[self.position[0]][self.position[1]]:
-            self.change_position(self, directions[i])
-        return (self.position[0], self.position[1])
+        self.position = self.__height // 2, self.__width // 2
+        counter = 1
+        while room != self.rooms[self.position[0]][self.position[1]]:
+            for i in range(counter):
+                self.change_position(directions[0])
+                if room == self.rooms[self.position[0]][self.position[1]]:
+                    return self.position[0], self.position[1]
+            for i in range(counter):
+                self.change_position(directions[1])
+                if room == self.rooms[self.position[0]][self.position[1]]:
+                    return self.position[0], self.position[1]
+            counter += 1
+            for i in range(counter):
+                self.change_position(directions[2])
+                if room == self.rooms[self.position[0]][self.position[1]]:
+                    return self.position[0], self.position[1]
+            for i in range(counter):
+                self.change_position(directions[3])
+                if room == self.rooms[self.position[0]][self.position[1]]:
+                    return self.position[0], self.position[1]
+            counter += 1
+        return self.position[0], self.position[1]
 
     def can_move(self, direction):
         new_pos = (direction[0] + self.position[0], direction[1] + self.position[1])
-        if self.__height > new_pos[0] > -1 and self.__width > new_pos[1] > -1:
+        if len(self.rooms) > new_pos[0] > -1 and len(self.rooms[0]) > new_pos[1] > -1:
             return new_pos[0], new_pos[1]
         else:
             return False
