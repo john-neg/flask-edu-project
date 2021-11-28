@@ -62,11 +62,10 @@
 {% if message %}
     <div class="row justify-content-md-center mt-4 mb-4">
     <div class="d-grid col-md-5">
-        {% if current_room != "Выход" %}
-        <div class="alert alert-warning" role="alert">
-        {% else %}
-        <div class="alert alert-success" role="alert">
-        {% endif %}
+
+        <div class="{% if current_room != 'Выход' %} alert alert-warning
+                    {% else %} alert alert-success {% endif %}" role="alert">
+
           {{ message }}
         </div>
     </div>
