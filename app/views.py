@@ -1,5 +1,5 @@
 from app import app
-from app.classes import Rooms
+from app.models import Rooms
 from app.forms import *
 from werkzeug.utils import redirect
 from flask import render_template, request, url_for

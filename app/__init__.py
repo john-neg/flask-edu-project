@@ -4,4 +4,4 @@ from config import FlaskConfig
 app = Flask(__name__)
 app.config.from_object(FlaskConfig)
 
-from app import views, classes
+from app import views, models
