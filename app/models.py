@@ -15,11 +15,10 @@ class RoomsMeta(type):
 
 
 class Rooms(metaclass=RoomsMeta):
+    """Класс для создания и работы с пространством комнат"""
     def __init__(self, width=10, height=10):
         self.__width = width
         self.__height = height
-        self.rooms = self.generate_rooms()
-        self.position = self.start_position()
         self.message = "Добро пожаловать"
         self.names = [
             (1, "Спальня"),
@@ -37,21 +36,23 @@ class Rooms(metaclass=RoomsMeta):
             "Запад",
             "Восток",
         ]
+        self.rooms = self.generate_rooms()
+        self.position = self.start_position()
 
     def generate_rooms(self) -> object:
-        """создание комнат"""
+        """метод для создание комнат"""
         rooms = [
             [random.randint(0, 7) for _ in range(self.__width)]
             for _ in range(self.__height)
         ]
-        """ формируем стены (обозначение - 0) """
+        """формируем стены (обозначение - 0)"""
         for i in range(self.__width):
             rooms[0][i] = 0
             rooms[self.__height - 1][i] = 0
         for i in range(self.__height):
             rooms[i][0] = 0
             rooms[i][self.__width - 1] = 0
-        """ формируем выходы с каждой стороны (обозначение - -1) """
+        """формируем выходы с каждой стороны (обозначение - -1)"""
         rooms[0][random.randint(1, self.__width - 2)] = -1
         rooms[self.__height - 1][random.randint(1, self.__width - 2)] = -1
         rooms[random.randint(1, self.__height - 2)][0] = -1
@@ -59,19 +60,21 @@ class Rooms(metaclass=RoomsMeta):
         return rooms
 
     def get_name(self):
+        """метод сообщающий имя комнаты"""
         room_pos = self.rooms[self.position[0]][self.position[1]]
         for i in self.names:
             if room_pos in i:
                 return i[1]
 
     def start_position(self):
-        """определение стартовой позиции от средней точки в пространстве"""
+        """метод для определения стартовой позиции от средней точки в пространстве"""
         self.position = self.__height // 2, self.__width // 2
         while self.rooms[self.position[0]][self.position[1]] == 0:
             self.change_position(random.choice(self.directions))
         return self.position
 
     def can_move(self, direction):
+        """метод для проверки возможности передвижения"""
         directions = {
             "Север": (-1, 0),
             "Юг": (1, 0),
@@ -79,7 +82,6 @@ class Rooms(metaclass=RoomsMeta):
             "Восток": (0, 1),
         }
         step = directions[direction]
-        """проверка возможности движения"""
         new_pos = (step[0] + self.position[0], step[1] + self.position[1])
         if self.__height < new_pos[0] or self.__width < new_pos[1]:
             return False
@@ -89,6 +91,7 @@ class Rooms(metaclass=RoomsMeta):
             return new_pos[0], new_pos[1]
 
     def change_position(self, direction):
+        """метод для смена позиции"""
         if self.can_move(direction):
             self.position = self.can_move(direction)
             if self.rooms[self.position[0]][self.position[1]] == -1:

@@ -5,10 +5,10 @@ from wtforms.validators import DataRequired, NumberRange
 
 class Intro(FlaskForm):
     height = IntegerField(
-        "Высота", validators=[NumberRange(min=4, max=20, message="От 4х до 20-ти")]
+        "Высота", validators=[NumberRange(min=4, max=20)]
     )
     width = IntegerField(
-        "Ширина", validators=[NumberRange(min=4, max=20, message="От 4х до 20-ти")]
+        "Ширина", validators=[NumberRange(min=4, max=20)]
     )
     submit = SubmitField("Начать игру")
 
@@ -27,6 +27,6 @@ class Quest(FlaskForm):
     )
     steps = IntegerField(
         "Количество шагов",
-        validators=[NumberRange(min=1, max=5, message="От одного до 3х шагов за раз")],
+        validators=[NumberRange(min=1, max=5)],
     )
     submit = SubmitField("Пройти")

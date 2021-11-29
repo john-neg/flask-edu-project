@@ -17,11 +17,16 @@
         <label class="form-label">{{ form.height.label }}</label>
         {{ form.height(class="form-control form-control-ld") }}
     </div>
-
+          {% for err in form.height.label.errors %}
+            <span style="color: #ff4f1f">{{ err }}</span>
+          {% endfor %}
     <div class="col-md-1">
         <label class="form-label">{{ form.width.label }}</label>
         {{ form.width(class="form-control form-control-ld") }}
     </div>
+        {% for err in form.width.label.errors %}
+          <span style="color: #ff4f1f">{{ err }}</span>
+        {% endfor %}
 </div></div>
 
 {{ form.submit(class="btn btn-outline-secondary") }}

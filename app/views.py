@@ -9,6 +9,9 @@ from flask import render_template, request, url_for
 @app.route("/index", methods=["GET", "POST"])
 def index():
     form = Intro()
+    if request.method == 'GET':
+        form.width.data = 7
+        form.height.data = 7
     if form.validate_on_submit():
         width = request.form.get("width")
         height = request.form.get("height")
@@ -19,6 +22,8 @@ def index():
 @app.route("/quest/<int:width>x<int:height>", methods=["GET", "POST"])
 def quest(width, height):
     form = Quest()
+    if request.method == 'GET':
+        form.steps.data = 1
     if form.validate_on_submit():
         place = Rooms()
         direction = request.form.get("direction")
